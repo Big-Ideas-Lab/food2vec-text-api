@@ -3,3 +3,5 @@ dconf
 /node_modules/
 *error*
 *lock*
+
+.env
