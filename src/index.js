@@ -5,7 +5,7 @@ const URL = require('url-parse');
 
 require('dotenv').config()
 
-const { getRecipesData } = require('./recipes');
+const { getRecipeInfo } = require('./recipes');
 
 // start app
 const app = express();
@@ -36,16 +36,14 @@ app.get('/', async (_, res) => {
   }
 });
 
-// app.get()
-
-app.get('/recipes', async (request, response) => {
+app.get('/recipe', async (request, response) => {
   const query = request.query.query
   const number = request.query.number
 
   if (!query && !number) {
     return response.status(400).json({
       status: 'ERROR',
-      message: 'Make sure all queries are given.'
+      message: 'Make sure all parameters are given.'
     });
   }
 
@@ -61,9 +59,7 @@ app.get('/recipes', async (request, response) => {
   return axios.get(location)
   .then(res => {
     const food = res.data.results
-    // const data = await getRecipesData(food)
-    // response.json(data)
-    getRecipesData(food)
+    getRecipeInfo(query, food)
     .then((data) => {
       response.json(data)
     })
@@ -73,6 +69,46 @@ app.get('/recipes', async (request, response) => {
   ))
 })
 
+app.get('/recipes', async (request, response) => {
+  const queries = request.query.queries
+  const number = request.query.number
+
+  if (!queries && !number) {
+    return response.status(400).json({
+      status: 'ERROR',
+      message: 'Make sure all parameters are given.'
+    });
+  }
+
+  const qArr = queries.split(',')
+  const promises = [];
+  const output = [];
+
+  for (let query of qArr) {
+    const uri = new URL(`${url}/search`)
+    const params = {
+      query: query,
+      number: number,
+      apiKey: key,
+    }
+    uri.set('query', params)
+
+    let location = uri.toString()
+
+    promises.push(
+      axios.get(location)
+      .then(res => {
+        const food = res.data.results
+        return getRecipeInfo(query, food)
+      })
+    );
+  }
+
+  return Promise.all(promises).then((res) => {
+    // console.log('res', res);
+    response.json(res)
+  })
+})
 
 // listen
 const port = process.env.PORT || 5000;

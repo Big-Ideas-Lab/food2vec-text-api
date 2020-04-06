@@ -4,7 +4,8 @@ const stripHtml = require("string-strip-html");
 const key = process.env.API_KEY || false
 const mainURL = 'https://api.spoonacular.com/recipes'
 
-async function getRecipesData(recipies) {
+// call recipe/:id/information
+async function getRecipeInfo(query, recipies) {
   const fullData = [];
   let corpus = '';
 
@@ -22,12 +23,12 @@ async function getRecipesData(recipies) {
     })
   }
   return {
-    data: fullData,
-    corpus
+    query,
+    corpus,
+    data: fullData
   }
 }
 
-
 module.exports = {
-  getRecipesData,
+  getRecipeInfo,
 }
