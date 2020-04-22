@@ -22,17 +22,18 @@ app.get('/', async (_, res) => {
       message: 'API Key Not Found.'
     })
   } else {
-    const urlString = `https://api.spoonacular.com/recipes/search?query=milkshake&number=2&apiKey=${key}`
-
-    axios.get(urlString)
-    .then(function (r) {
-      res.json(r.data)
-    })
-    .catch(function (err) {
-      console.log(err);
-    })
-
-    res.send('hello worlds!')
+    res.send(`
+      <div>
+        <h1>food2vec Text Corpus API</h1>
+        <p>
+          GET /recipe - get text corpus of one search query. (PARAMS: query* (string); number* (int))
+        </p>
+        <p>
+          GET /recipes - get text corpus of multiple search queries. (PARAMS: queries* (array); number* (int))
+        </p>
+        <p><b>* required</b></p>
+      </div>
+    `)
   }
 });
 
