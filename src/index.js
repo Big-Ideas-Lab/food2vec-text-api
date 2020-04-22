@@ -41,7 +41,7 @@ app.get('/recipe', async (request, response) => {
   const query = request.query.query
   const number = request.query.number
 
-  if (!query && !number) {
+  if (!query) {
     return response.status(400).json({
       status: 'ERROR',
       message: 'Make sure all parameters are given.'
@@ -74,7 +74,7 @@ app.get('/recipes', async (request, response) => {
   const queries = request.query.queries
   const number = request.query.number
 
-  if (!queries && !number) {
+  if (!queries) {
     return response.status(400).json({
       status: 'ERROR',
       message: 'Make sure all parameters are given.'
