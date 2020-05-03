@@ -1,0 +1,20 @@
+<div>
+  <h1>food2vec Text Corpus API</h1>
+  <h2>GET /recipe</h2>
+  <p>
+     Description: get text corpus of one search query
+  </p>
+  <p><b>Parameters:</b></p>
+  <p>query* (string) - The string/word to search recipies for. Example: localhost:5000/recipe?query=banana </p>
+  <p>number (int) - The number limit of recipies to return from Spoonacular. Example: localhost:5000/recipe?query=banana&number=5 </p>
+
+  <h2>GET /recipes</h2>
+  <p>
+    Description: get text corpus of multiple search queries.
+  </p>
+  <p><b>Parameters:</b></p>
+  <p>queries* (array of strings) - The words to search recipies for. Example: localhost:5000/recipes?queries=banana,apple,pie </p>
+  <p>number (int) - The number limit of recipies to return from Spoonacular. Example: localhost:5000/recipe?queries=banana,apple,pie&number=5 </p>
+  <hr>
+  <p><b>* required</b></p>
+</div>

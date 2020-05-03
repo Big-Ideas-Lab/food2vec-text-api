@@ -22,18 +22,7 @@ app.get('/', async (_, res) => {
       message: 'API Key Not Found.'
     })
   } else {
-    res.send(`
-      <div>
-        <h1>food2vec Text Corpus API</h1>
-        <p>
-          GET /recipe - get text corpus of one search query. (PARAMS: query* (string); number* (int))
-        </p>
-        <p>
-          GET /recipes - get text corpus of multiple search queries. (PARAMS: queries* (array); number* (int))
-        </p>
-        <p><b>* required</b></p>
-      </div>
-    `)
+    res.sendFile(__dirname + '/index.html')
   }
 });
 
